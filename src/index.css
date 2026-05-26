@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  /* brand colors */
+  --color-brand-bg: #F4EFE6;
+  --color-brand-surface: #FFFFFF;
+  --color-brand-primary: #4A3422;
+  --color-brand-secondary: #7A5C3E;
+  --color-brand-accent: #5F7D5A;
+  --color-brand-border: #D8CFC3;
+  --color-brand-success: #5F7D5A;
+  --color-brand-error: #B94A48;
+
+  /* custom fonts */
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Montserrat", sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-accent text-white py-3.5 px-4 rounded-lg font-semibold hover:bg-brand-accent/90 transition-all shadow-md flex justify-center items-center gap-2;
+  }
+  .btn-secondary {
+    @apply bg-brand-surface border-2 border-brand-border text-brand-primary py-3.5 px-4 rounded-lg font-semibold hover:border-brand-accent transition-all flex justify-center items-center gap-2;
+  }
+  .input-field {
+    @apply w-full border-2 border-brand-border rounded-lg px-3 py-2 bg-brand-surface text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent transition-all text-sm font-body;
+  }
+  .label-text {
+    @apply flex items-center gap-2 text-sm font-semibold text-brand-secondary mb-2;
+  }
+  .card {
+    @apply bg-brand-surface rounded-2xl shadow-xl border border-brand-border overflow-hidden;
+  }
+}
+
+/* remove number arrows */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Premium Minimalist Overrides for React Datepicker Popups */
+.react-datepicker {
+  font-family: "Montserrat", sans-serif !important;
+  background-color: var(--color-brand-surface) !important;
+  border: 1px solid var(--color-brand-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+  overflow: hidden;
+}
+
+.react-datepicker__header {
+  background-color: var(--color-brand-bg) !important;
+  border-bottom: 1px solid var(--color-brand-border) !important;
+  padding-top: 12px !important;
+}
+
+.react-datepicker__current-month {
+  color: var(--color-brand-primary) !important;
+  font-weight: 700 !important;
+}
+
+.react-datepicker__day-name {
+  color: var(--color-brand-secondary) !important;
+  font-weight: 600 !important;
+}
+
+.react-datepicker__day {
+  color: var(--color-brand-primary) !important;
+  border-radius: 6px !important;
+  transition: all 0.15s ease;
+}
+
+.react-datepicker__day:hover {
+  background-color: var(--color-brand-bg) !important;
+}
+
+.react-datepicker__day--selected, 
+.react-datepicker__day--keyboard-selected {
+  background-color: var(--color-brand-accent) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+/* Time Picker Popup Customization */
+.react-datepicker__time-container {
+  border-left: 1px solid var(--color-brand-border) !important;
+  width: 90px !important;
+}
+
+.react-datepicker__time-header {
+  color: var(--color-brand-primary) !important;
+  font-weight: 700 !important;
+}
+
+.react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
+  height: 34px !important;
+  padding: 7px 10px !important;
+  color: var(--color-brand-primary) !important;
+  transition: all 0.15s ease;
+}
+
+.react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
+  background-color: var(--color-brand-bg) !important;
+}
+
+li.react-datepicker__time-list-item--selected {
+  background-color: var(--color-brand-accent) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
