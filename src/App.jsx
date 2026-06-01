@@ -7,12 +7,31 @@ import PriceManager from "./components/PriceManager";
 import QuickStats from "./components/QuickStats";
 import { Toaster } from "react-hot-toast";
 import { supabase } from "./supabase";
+import Login from "./components/Login";
 
 const App = () => {
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [currentView, setCurrentView] = useState("create");
   const [editingOrder, setEditingOrder] = useState(null);
   const [duplicatingOrder, setDuplicatingOrder] = useState(null);
   const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const fetchOrders = async () => {
     const { data, error } = await supabase
@@ -71,7 +90,6 @@ const App = () => {
     switch (currentView) {
       case "create":
         return (
-          /* INTEGRATED: Layout column container to align QuickStats perfectly with the form layout width stream */
           <div className="w-full max-w-md lg:max-w-4xl mx-auto space-y-6">
             <QuickStats orders={orders} />
             <OrderForm
@@ -104,6 +122,16 @@ const App = () => {
     }
   };
 
+  // If there is no active session, show the Login screen
+  if (loading) {
+    return <div className="min-h-screen bg-[#FDFBF7]" />; 
+  }
+  
+  if (!session) {
+    return <Login onLoginSuccess={() => console.log("Successfully Logged In!")} />;
+  }
+
+  // If logged in, show the main dashboard
   return (
     <div className="flex flex-col md:flex-row h-screen bg-brand-bg font-body overflow-hidden">
       <Toaster
